@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import (division, print_function, unicode_literals)
+#############################################################################
+# Author  : Jerome ODIER, Jerome FULACHIER, Fabian LAMBERT, Solveig ALBRAND
+#
+# Email   : jerome.odier@lpsc.in2p3.fr
+#           jerome.fulachier@lpsc.in2p3.fr
+#           fabian.lambert@lpsc.in2p3.fr
+#           solveig.albrand@lpsc.in2p3.fr
+#
+# Version : 5.X.X (2014)
+#
+#############################################################################
+
+import sys, pyAMI.app
+	
+#############################################################################
+# ENTRY POINT                                                               #
+#############################################################################
+
+def entry_point():
+	return pyAMI.app.App('local', 'text').run()
+
+#############################################################################
+
+if __name__ == '__main__':
+	sys.exit(entry_point())
+
+#############################################################################
