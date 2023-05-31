@@ -6,6 +6,7 @@
 # Email   : jerome.odier@lpsc.in2p3.fr
 #           jerome.fulachier@lpsc.in2p3.fr
 #           fabian.lambert@lpsc.in2p3.fr
+#           solveig.albrand@lpsc.in2p3.fr
 #
 #############################################################################
 
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 		packages = ['pyAMI'],
 		package_data = {'': ['README', 'CHANGELOG', '*.txt'], 'pyAMI': ['*.txt']},
 		scripts = scripts,
-		install_requires = ['argparse', 'argparseplus', 'tiny_xslt'],
+		install_requires = ['argparseplus', 'tiny_xslt'],
 		platforms = 'any',
 		zip_safe = False
 	)
