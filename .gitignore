@@ -1,2 +1,4 @@
 .idea/
+pyAMI_core.egg-info/
+
 *.iml
