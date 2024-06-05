@@ -106,7 +106,10 @@ class Config(object):
 
 		#############################################################
 
-		self._ini = configparser.ConfigParser()
+		try:
+			self._ini = configparser.ConfigParser(interpolation = None)
+		except TypeError:
+			self._ini = configparser.ConfigParser()
 
 		self._ini.add_section('AMI')
 
