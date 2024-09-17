@@ -40,14 +40,20 @@ class HttpClient(object):
 
 	#####################################################################
 
-	def create_unverified_context(slef):
-
+	def create_context(self, check_hostname, keyfile = None, certfile = None):
 		result = ssl.SSLContext(ssl.PROTOCOL_TLS)
 
 		result.options |= ssl.OP_NO_SSLv2
 		result.options |= ssl.OP_NO_SSLv3
 
 		result.check_hostname = False
+
+		if keyfile is not None and certfile is not None:
+
+			result.load_cert_chain(
+				keyfile = keyfile,
+				certfile = certfile,
+			)
 
 		return result
 
@@ -82,18 +88,17 @@ class HttpClient(object):
 				# WITHOUT CERTIFICATE                       #
 				#############################################
 
-				try:
-					context = self.create_unverified_context()
+				if (sys.version_info[0] == 3) and (sys.version_info[1] >= 2):
+
+					context = self.create_context(False, keyfile = None, certfile = None)
 
 					self.connection = http_client.HTTPSConnection(
 						str(self.endpoint['host']),
 						int(self.endpoint['port']),
-						key_file = None,
-						cert_file = None,
 						context = context
 					)
 
-				except AttributeError as e:
+				else:
 
 					self.connection = http_client.HTTPSConnection(
 						str(self.endpoint['host']),
@@ -107,18 +112,17 @@ class HttpClient(object):
 				# WITH CERTIFICATE                          #
 				#############################################
 
-				try:
-					context = self.create_unverified_context()
+				if (sys.version_info[0] == 3) and (sys.version_info[1] >= 2):
+
+					context = self.create_context(False, keyfile = self.config.key_file, certfile = self.config.cert_file)
 
 					self.connection = http_client.HTTPSConnection(
 						str(self.endpoint['host']),
 						int(self.endpoint['port']),
-						key_file = self.config.key_file,
-						cert_file = self.config.cert_file,
 						context = context
 					)
 
-				except AttributeError as e:
+				else:
 
 					self.connection = http_client.HTTPSConnection(
 						str(self.endpoint['host']),
