@@ -40,13 +40,15 @@ class HttpClient(object):
 
 	#####################################################################
 
-	def create_context(self, check_hostname, keyfile = None, certfile = None):
+	def create_context(self, keyfile = None, certfile = None):
 		result = ssl.SSLContext(ssl.PROTOCOL_TLS)
 
 		result.options |= ssl.OP_NO_SSLv2
 		result.options |= ssl.OP_NO_SSLv3
 
-		result.check_hostname = False
+		if hasattr(result, 'check_hostname'):
+
+			result.check_hostname = False
 
 		if keyfile is not None and certfile is not None:
 
@@ -92,11 +94,22 @@ class HttpClient(object):
 
 					context = self.create_context(False, keyfile = None, certfile = None)
 
-					self.connection = http_client.HTTPSConnection(
-						str(self.endpoint['host']),
-						int(self.endpoint['port']),
-						context = context
-					)
+					try:
+
+						self.connection = http_client.HTTPSConnection(
+							str(self.endpoint['host']),
+							int(self.endpoint['port']),
+							check_hostname = False,
+							context = context
+						)
+
+					except TypeError:
+
+						self.connection = http_client.HTTPSConnection(
+							str(self.endpoint['host']),
+							int(self.endpoint['port']),
+							context = context
+						)
 
 				else:
 
@@ -116,11 +129,22 @@ class HttpClient(object):
 
 					context = self.create_context(False, keyfile = self.config.key_file, certfile = self.config.cert_file)
 
-					self.connection = http_client.HTTPSConnection(
-						str(self.endpoint['host']),
-						int(self.endpoint['port']),
-						context = context
-					)
+					try:
+
+						self.connection = http_client.HTTPSConnection(
+							str(self.endpoint['host']),
+							int(self.endpoint['port']),
+							check_hostname = False,
+							context = context
+						)
+
+					except TypeError:
+
+						self.connection = http_client.HTTPSConnection(
+							str(self.endpoint['host']),
+							int(self.endpoint['port']),
+							context = context
+						)
 
 				else:
 
