@@ -92,7 +92,7 @@ class HttpClient(object):
 
 				if (sys.version_info[0] == 3) and (sys.version_info[1] >= 2):
 
-					context = self.create_context(False, keyfile = None, certfile = None)
+					context = self.create_context(keyfile = None, certfile = None)
 
 					try:
 
@@ -127,7 +127,7 @@ class HttpClient(object):
 
 				if (sys.version_info[0] == 3) and (sys.version_info[1] >= 2):
 
-					context = self.create_context(False, keyfile = self.config.key_file, certfile = self.config.cert_file)
+					context = self.create_context(keyfile = self.config.key_file, certfile = self.config.cert_file)
 
 					try:
 
