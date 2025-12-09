@@ -130,7 +130,8 @@ def _resolve_field(table, field):
 	else:
 		resolved_field = resolved_field.split('=')[0]
 
-		return '%s.%s' % (resolved_table, resolved_field)
+        #FL return '%s.%s' % (resolved_table, resolved_field)
+		return '`%s`.`%s`' % (resolved_table, resolved_field)
 
 #############################################################################
 
@@ -299,11 +300,13 @@ def smart_execute(client, table, patterns = None, fields = None, order = None, l
 	#####################################################################
 
 	if limit:
-
+        #FL
 		if isinstance(limit, (list, tuple)):
-			limit = ' LIMIT %i,%i' % (limit[0], limit[1])
+			#limit = ' LIMIT %i,%i' % (limit[0], limit[1])
+			limit = ' OFFSET %i LIMIT %i' % (limit[0], limit[1])
 		else:
-			limit = ' LIMIT 0,%i' % limit
+			#limit = ' LIMIT 0,%i' % limit
+			limit = ' OFFSET 0 LIMIT %i' % limit
 
 	else:
 		limit = ''
@@ -318,6 +321,8 @@ def smart_execute(client, table, patterns = None, fields = None, order = None, l
 		'-entity="%s"' % ENTITY,
 		'-mql="SELECT %s WHERE %s AND %s%s%s"' % (field_part, pattern_part, condition_part, order, limit),
 	]
+
+	#safeprint('command: %s',command)
 
 	if show_archived:
 		command.append('-showArchived=true')
