@@ -130,7 +130,6 @@ def _resolve_field(table, field):
 	else:
 		resolved_field = resolved_field.split('=')[0]
 
-        #FL return '%s.%s' % (resolved_table, resolved_field)
 		return '`%s`.`%s`' % (resolved_table, resolved_field)
 
 #############################################################################
