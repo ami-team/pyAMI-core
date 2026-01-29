@@ -174,7 +174,7 @@ def get_entity(table):
 def get_primary_fields(table):
 
 	try:
-		return re.split('\W+', tables[table]['@primary'])
+		return re.split(r'\W+', tables[table]['@primary'])
 
 	except KeyError:
 		raise pyAMI.exception.Error('no primary field for table `%s`' % table)
@@ -184,7 +184,7 @@ def get_primary_fields(table):
 def get_foreign_tables(table):
 
 	try:
-		return re.split('\W+', tables[table]['@foreign'])
+		return re.split(r'\W+', tables[table]['@foreign'])
 
 	except KeyError:
 		return (((((((((((((((((((((((((((((([ ]))))))))))))))))))))))))))))))
